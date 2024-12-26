@@ -15,51 +15,51 @@ const verifyToken = async (token) => {
 
 // Save Shapes
 router.post('/saveShapes', async (req, res) => {
-  const { email, shapes, token } = req.body;
+  const { email, shapes, token } = req.body; // Email + Shapes Array
 
   try {
-    // Verify Token
+    // Token Validation
     const decodedToken = await verifyToken(token);
     if (decodedToken.email !== email) {
       return res.status(401).json({ message: 'Unauthorized!' });
     }
 
-    // Find if the user already exists
+    // Check if User Exists
     let shapeData = await Shape.findOne({ email });
-
     if (!shapeData) {
-      // Create new shape data if no record exists for user
+      // If no data exists, create new entry
       shapeData = new Shape({ email, shapes: [] });
     }
 
-    // Validate Each Shape Before Saving
+    // Validate Shapes within this User's Shapes Only
     for (const newShape of shapes) {
-      // Check for duplicate name
-      const nameExists = shapeData.shapes.some((shape) => shape.name === newShape.name);
+      // Check if name already exists for this user
+      const nameExists = shapeData.shapes.some(
+        (shape) => shape.name === newShape.name
+      );
+
       if (nameExists) {
         return res.status(400).json({
-          message: `Shape with name '${newShape.name}' already exists.`,
+          message: `Shape name '${newShape.name}' already exists for this user.`,
         });
       }
 
-      // Check for duplicate coordinates
-      const coordExists = shapeData.shapes.some((shape) => {
-        return (
-          JSON.stringify(shape.coordinates) === JSON.stringify(newShape.coordinates)
-        );
-      });
+      // Check if coordinates already exist for this user
+      const coordExists = shapeData.shapes.some(
+        (shape) => JSON.stringify(shape.coordinates) === JSON.stringify(newShape.coordinates)
+      );
 
       if (coordExists) {
         return res.status(400).json({
-          message: 'A shape with identical coordinates already exists!',
+          message: 'A shape with identical coordinates already exists for this user!',
         });
       }
 
-      // Add new shape to user's shapes
+      // Push Valid Shape
       shapeData.shapes.push(newShape);
     }
 
-    // Save all the shapes
+    // Save Data
     await shapeData.save();
 
     res.status(201).json({ message: 'Shapes saved successfully!' });
@@ -68,6 +68,7 @@ router.post('/saveShapes', async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 });
+
 
 
 // Fetch Shapes
