@@ -37,6 +37,7 @@ build/
 *.env.production
 *.env.test
 *.env.*
+.env
 
 # Firebase Admin SDK Key
 config/serviceAccountKey.json
