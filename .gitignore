@@ -1,0 +1,75 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Debugging files
+coverage/
+*.map
+
+# Build files
+dist/
+build/
+
+# Logs and Database Dumps
+*.sqlite
+*.sqlite-journal
+*.env.local
+*.env.development
+*.env.production
+*.env.test
+*.env.*
+
+# Firebase Admin SDK Key
+config/serviceAccountKey.json
+
+# Other dependencies
+node_modules/
+package-lock.json
+
+# Ignore test coverage reports
+coverage/
+
+# Misc
+*.bak
+*.tmp
+
+# Ignore deployment folders
+public/
+uploads/
+
+# IDE Specific
+*.iml
+*.ipr
+*.iws
+
+# Environment specific configurations
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore API keys and secrets
+config/secrets.json
+
+# Ignore IDE and system files
+*.bak
+*.swp
+*.swo
