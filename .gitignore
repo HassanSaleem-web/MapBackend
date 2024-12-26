@@ -39,7 +39,7 @@ build/
 *.env.*
 
 # Firebase Admin SDK Key
-
+config/serviceAccountKey.json
 
 # Other dependencies
 node_modules/
